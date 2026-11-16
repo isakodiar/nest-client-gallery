@@ -10,6 +10,7 @@ export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
 export async function GET(_request: NextRequest, { params }: RouteContext) {
+  void _request;
   const { slug } = await params;
   const supabase = await createClient();
   const { data: claimsData } = await supabase.auth.getClaims();
