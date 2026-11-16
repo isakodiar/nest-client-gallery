@@ -38,6 +38,8 @@ alter table public.galleries enable row level security;
 alter table public.gallery_members enable row level security;
 alter table public.photos enable row level security;
 
+grant select, insert, update, delete on public.galleries, public.gallery_members, public.photos to authenticated;
+
 create or replace function public.is_gallery_owner(target_gallery uuid)
 returns boolean
 language sql

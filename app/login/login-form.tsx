@@ -26,7 +26,7 @@ export default function LoginForm({ configured }: { configured: boolean }) {
       email: email.trim().toLowerCase(),
       options: {
         shouldCreateUser: false,
-        emailRedirectTo: window.location.origin + "/auth/callback",
+        emailRedirectTo: window.location.origin + "/auth/callback?next=/collections",
       },
     });
     setPending(false);

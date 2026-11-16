@@ -8,7 +8,7 @@ A private, editorial photography delivery experience for NEST clients.
 - Public design preview at /preview using temporary stock imagery only.
 - Invitation-only email magic-link authentication through Supabase.
 - Private Supabase Storage bucket with row-level security.
-- Client gallery route at /g/[slug].
+- Authenticated collection index at /collections and individual galleries at /g/[slug].
 - Lightbox navigation, individual original downloads, and ZIP collection download.
 - Responsive layouts for desktop and mobile.
 
@@ -27,12 +27,13 @@ The visual preview at /preview can be reviewed before Supabase is configured. Re
 1. Create a Supabase project.
 2. Run supabase/migrations/0001_gallery_schema.sql in the Supabase SQL Editor.
 3. Add NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY to the local environment and Vercel project settings.
-4. Create client users from Supabase Authentication. Public sign-up is intentionally disabled in the login form; only existing users can request a sign-in link.
-5. Create a gallery row and assign the client in gallery_members.
-6. Upload original files to the private gallery-media bucket using this folder structure:
+4. In Supabase Authentication, create the client users. Public sign-up is intentionally disabled in the login form; only existing users can request a sign-in link.
+5. Add the deployed app URL and the local callback URL (/auth/callback) to the Supabase Auth redirect URL allowlist.
+6. Create a gallery row and assign the client in gallery_members.
+7. Upload original files to the private gallery-media bucket using this folder structure:
    - GALLERY_UUID/originals/filename.jpg
    - GALLERY_UUID/previews/filename.webp
-7. Add one row per image to public.photos. Set storage_path to the original file path and preview_path to the optimized preview path.
+8. Add one row per image to public.photos. Set storage_path to the original file path and preview_path to the optimized preview path.
 
 Example gallery record (replace the UUID with the authorized NEST owner user ID):
 

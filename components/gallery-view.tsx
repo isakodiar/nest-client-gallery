@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import { ArrowDownToLine, ChevronLeft, ChevronRight, X } from "lucide-react";
 
@@ -59,9 +60,13 @@ export default function GalleryView({
   return (
     <main className="gallery-page">
       <header className="gallery-header">
-        <a className="wordmark" href="/">NEST<span>®</span></a>
+        <Link className="wordmark" href="/">NEST<span>®</span></Link>
         <span className="gallery-header-center">PHOTOGRAPHY / PRIVATE COLLECTION</span>
-        <span className="gallery-header-right">{isDemo ? "DESIGN PREVIEW" : "PRIVATE ACCESS"}</span>
+        {isDemo ? (
+          <span className="gallery-header-right">DESIGN PREVIEW</span>
+        ) : (
+          <Link className="gallery-header-right gallery-header-link" href="/collections">MY COLLECTIONS ↗</Link>
+        )}
       </header>
 
       <section className="gallery-content">
@@ -96,7 +101,7 @@ export default function GalleryView({
               <span>THE COLLECTION</span>
               <strong>{clientName}</strong>
             </div>
-            <span className="cover-index">Nº 001 — {formatIndex(photos.length)}</span>
+            <span className="cover-index">Nº 001 — {String(photos.length).padStart(2, "0")}</span>
           </div>
         ) : (
           <div className="gallery-empty">
@@ -110,12 +115,12 @@ export default function GalleryView({
             <span className="eyebrow">THE SELECTED FRAMES</span>
             <strong>{String(photos.length).padStart(2, "0")} <span>PHOTOGRAPHS</span></strong>
           </div>
-          {downloadAllHref ? (
+          {downloadAllHref && photos.length > 0 ? (
             <a className="download-collection" href={downloadAllHref}>
               DOWNLOAD COLLECTION <ArrowDownToLine size={15} />
             </a>
           ) : (
-            <span className="preview-stamp">{isDemo ? "SAMPLE IMAGERY / NOT FOR DOWNLOAD" : "DOWNLOADS AVAILABLE BELOW"}</span>
+            <span className="preview-stamp">{isDemo ? "SAMPLE IMAGERY / NOT FOR DOWNLOAD" : "YOUR COLLECTION IS BEING PREPARED"}</span>
           )}
         </div>
 
