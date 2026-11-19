@@ -95,7 +95,7 @@
 .login-layout { display: grid; grid-template-columns: minmax(0, .94fr) minmax(0, 1.06fr); flex: 1; }
 .login-brand-panel { display: flex; flex-direction: column; justify-content: space-between; min-height: 675px; padding: 53px clamp(24px, 5vw, 90px); background: var(--nest-red); color: white; }
 .login-panel-top, .login-panel-bottom { font-size: 10px; font-weight: 800; letter-spacing: .14em; }
-.login-panel-headline { margin: auto 0; font: 900 clamp(100px, 10vw, 175px)/.82 var(--nest-display); letter-spacing: -.04em; }
+.login-panel-headline { margin: auto 0; font: 900 clamp(58px, 6.8vw, 118px)/.82 var(--nest-display); letter-spacing: -.04em; }
 .login-panel-headline em { font-family: Georgia,serif; font-size: .7em; font-weight: 400; }
 .login-panel-script { margin-top: -30px; font: italic clamp(28px, 3vw, 48px) Georgia,serif; transform:rotate(-7deg); }
 .nest-redesign .login-panel { width: min(520px, calc(100% - 88px)); padding: 60px 0; }
@@ -233,7 +233,7 @@
   .masthead, .gallery-header, .collections-page .collections-header { padding-left: 18px; padding-right: 18px; }
   .masthead-access { padding: 11px 10px; font-size: 8px; }
   .campaign-hero-content { min-height: 540px; }
-  .campaign-title-group h1 { font-size: clamp(78px, 20vw, 118px); }
+  .campaign-title-group h1 { font-size: clamp(64px, 17.5vw, 100px); }
   .campaign-hero-bottom p { font-size: 12px; }
   .campaign-action { width: 100%; justify-content: space-between; }
   .campaign-portrait { min-height: 360px; }
@@ -256,7 +256,7 @@
   .gallery-title-signature { font-size: 27px; }
   .gallery-cover { height: 440px; border-width: 3px; }
   .cover-top-label { left: 15px; right: 15px; top: 18px; font-size: 7px; }
-  .cover-editorial-headline { top: 31%; left: 4%; font-size: clamp(64px, 17vw, 104px); }
+  .cover-editorial-headline { top: 31%; left: 4%; font-size: clamp(50px, 14.5vw, 80px); }
   .cover-caption { bottom: 18px; left: 15px; }
   .cover-index { bottom: 20px; right: 15px; font-size: 8px; }
   .gallery-steps { grid-template-columns: 1fr; }
