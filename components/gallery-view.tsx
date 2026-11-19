@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import BrandMark from "@/components/brand-mark";
 import { useEffect, useState } from "react";
 import { ArrowDownToLine, ChevronLeft, ChevronRight, X } from "lucide-react";
 
@@ -65,8 +66,8 @@ export default function GalleryView({
   return (
     <main className="gallery-page">
       <header className="gallery-header">
-        <Link className="wordmark" href="/">NEST<span>®</span></Link>
-        <span className="gallery-header-center">PHOTOGRAPHY / PRIVATE COLLECTION</span>
+        <BrandMark priority />
+        <span className="gallery-header-center">NEST CREATIVE DELIVERY / PRIVATE COLLECTION</span>
         {isDemo ? (
           <span className="gallery-header-right">DESIGN PREVIEW</span>
         ) : sharedAccess ? (
@@ -78,18 +79,19 @@ export default function GalleryView({
 
       <section className="gallery-content">
         <div className="gallery-overline">
-          <span>COLLECTION / 001</span>
+          <span>NEST / COLLECTION Nº 001</span>
           <span>{dateLabel || "NEST STUDIO"}</span>
         </div>
 
         <div className="gallery-heading">
-          <div>
-            <p className="eyebrow">A PRIVATE PHOTOGRAPHY COLLECTION</p>
+          <div className="gallery-title-block">
+            <p className="eyebrow">CURATED WITH INTENTION / MADE TO KEEP</p>
             <h1>{title}</h1>
+            <span className="gallery-title-signature">The NEST collection.</span>
           </div>
           <div className="gallery-intro-copy">
             <p>{description || "Una colección privada de fotografías, preparada por NEST para conservar y compartir."}</p>
-            <span>{clientName}</span>
+            <span>DELIVERED TO / {clientName}</span>
           </div>
         </div>
 
@@ -104,6 +106,8 @@ export default function GalleryView({
               sizes="(max-width: 900px) 100vw, 1400px"
             />
             <div className="cover-gradient" />
+            <div className="cover-top-label"><span>PRIVATE EDITION</span><span>NEST CREATIVE DELIVERY</span></div>
+            <div className="cover-editorial-headline" aria-hidden="true">YOUR<br /><em>MOMENTS.</em></div>
             <div className="cover-caption">
               <span>THE COLLECTION</span>
               <strong>{clientName}</strong>
@@ -117,9 +121,19 @@ export default function GalleryView({
           </div>
         )}
 
+        <div className="gallery-marquee" aria-label="Curated by NEST Creative Delivery">
+          <div className="gallery-marquee-track">NEST / CREATIVE DELIVERY / PRIVATE COLLECTION / MADE TO KEEP / NEST / CREATIVE DELIVERY / PRIVATE COLLECTION / MADE TO KEEP /</div>
+        </div>
+
+        <div className="gallery-steps" aria-label="Cómo disfrutar tu galería">
+          <div><span>01 / EXPLORE</span><strong>EXPLORE YOUR FRAMES.</strong><p>Recorre las imágenes seleccionadas para tu colección.</p></div>
+          <div><span>02 / ENJOY</span><strong>TAKE IT ALL IN.</strong><p>Abre cada fotografía para verla con todo detalle.</p></div>
+          <div><span>03 / KEEP</span><strong>MAKE THEM YOURS.</strong><p>Descarga cada imagen o los paquetes disponibles.</p></div>
+        </div>
+
         <div className="collection-toolbar">
           <div className="collection-count">
-            <span className="eyebrow">THE SELECTED FRAMES</span>
+            <span className="eyebrow">YOUR COLLECTION / SELECTED FRAMES</span>
             <strong>{String(photos.length).padStart(2, "0")} <span>PHOTOGRAPHS</span></strong>
           </div>
           {downloadLinks.length > 0 && photos.length > 0 ? (
@@ -170,10 +184,10 @@ export default function GalleryView({
 
         <footer className="gallery-footer">
           <div>
-            <span className="wordmark">NEST<span>®</span></span>
+            <BrandMark variant="white" />
             <p>Made with intention. Kept for a lifetime.</p>
           </div>
-          <span>© NEST STUDIO / ALL RIGHTS RESERVED</span>
+          <div className="gallery-footer-right"><span>CREATIVE DELIVERY / PRIVATE BY DESIGN</span><span>© NEST STUDIO / ALL RIGHTS RESERVED</span></div>
         </footer>
       </section>
 
