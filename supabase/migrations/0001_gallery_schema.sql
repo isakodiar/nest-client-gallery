@@ -19,6 +19,7 @@ create table if not exists public.gallery_members (
   primary key (gallery_id, user_id)
 );
 
+-- Image records used by the current photography-gallery interface.
 create table if not exists public.photos (
   id uuid primary key default gen_random_uuid(),
   gallery_id uuid not null references public.galleries(id) on delete cascade,
@@ -30,15 +31,37 @@ create table if not exists public.photos (
   created_at timestamptz not null default now()
 );
 
+-- General deliverables foundation for future video, audio, documents,
+-- archives and editable project files. The current client UI remains image-first.
+create table if not exists public.assets (
+  id uuid primary key default gen_random_uuid(),
+  gallery_id uuid not null references public.galleries(id) on delete cascade,
+  asset_type text not null check (
+    asset_type in ('image', 'video', 'audio', 'document', 'archive', 'project', 'other')
+  ),
+  storage_path text not null unique,
+  preview_path text,
+  filename text not null,
+  mime_type text,
+  file_size bigint check (file_size is null or file_size >= 0),
+  description text,
+  sort_order integer not null default 0,
+  is_downloadable boolean not null default true,
+  created_at timestamptz not null default now()
+);
+
 create index if not exists galleries_owner_id_idx on public.galleries(owner_id);
 create index if not exists gallery_members_user_id_idx on public.gallery_members(user_id);
 create index if not exists photos_gallery_sort_idx on public.photos(gallery_id, sort_order);
+create index if not exists assets_gallery_sort_idx on public.assets(gallery_id, sort_order);
+create index if not exists assets_gallery_type_idx on public.assets(gallery_id, asset_type);
 
 alter table public.galleries enable row level security;
 alter table public.gallery_members enable row level security;
 alter table public.photos enable row level security;
+alter table public.assets enable row level security;
 
-grant select, insert, update, delete on public.galleries, public.gallery_members, public.photos to authenticated;
+grant select, insert, update, delete on public.galleries, public.gallery_members, public.photos, public.assets to authenticated;
 
 create or replace function public.is_gallery_owner(target_gallery uuid)
 returns boolean
@@ -139,13 +162,37 @@ create policy "Owners can delete photographs"
 on public.photos for delete to authenticated
 using (public.is_gallery_owner(gallery_id));
 
+drop policy if exists "Gallery members can read assets" on public.assets;
+create policy "Gallery members can read assets"
+on public.assets for select to authenticated
+using (public.can_access_gallery(gallery_id));
+
+drop policy if exists "Owners can add assets" on public.assets;
+create policy "Owners can add assets"
+on public.assets for insert to authenticated
+with check (public.is_gallery_owner(gallery_id));
+
+drop policy if exists "Owners can update assets" on public.assets;
+create policy "Owners can update assets"
+on public.assets for update to authenticated
+using (public.is_gallery_owner(gallery_id))
+with check (public.is_gallery_owner(gallery_id));
+
+drop policy if exists "Owners can delete assets" on public.assets;
+create policy "Owners can delete assets"
+on public.assets for delete to authenticated
+using (public.is_gallery_owner(gallery_id));
+
+-- Private bucket. Keep this bucket private; RLS policies below authorize each path.
+-- The initial 50 MB per-file cap is conservative for the Free-tier setup.
+-- Raise it later only when the Supabase plan and upload flow support larger files.
 insert into storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
 values (
   'gallery-media',
   'gallery-media',
   false,
   52428800,
-  array['image/jpeg', 'image/png', 'image/webp', 'image/avif']
+  null
 )
 on conflict (id) do update
 set public = false,
