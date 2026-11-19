@@ -59,7 +59,7 @@ export default function HomePage() {
         </article>
         <article className="home-module module-02">
           <div className="module-label"><span>/ 02</span><span>THE COLLECTION</span></div>
-          <div className="module-symbol"><span className="module-giant-number">38</span><span className="module-number-note">YOUR MOMENTS<br/>IN FOCUS</span></div>
+          <div className="module-symbol"><span className="module-giant-number">∞</span><span className="module-number-note">YOUR MOMENTS<br/>IN FOCUS</span></div>
           <div className="module-bottom"><h2>FRAMES<br/>THAT LAST.</h2><p>Una presentación editorial para disfrutar cada fotografía a tu ritmo.</p></div>
         </article>
         <article className="home-module module-03">
