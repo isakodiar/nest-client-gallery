@@ -22,6 +22,7 @@ type GalleryViewProps = {
   photos: GalleryPhoto[];
   downloadAllHref?: string;
   isDemo?: boolean;
+  sharedAccess?: boolean;
 };
 
 function formatIndex(index: number) {
@@ -36,6 +37,7 @@ export default function GalleryView({
   photos,
   downloadAllHref,
   isDemo = false,
+  sharedAccess = false,
 }: GalleryViewProps) {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const activePhoto = activeIndex === null ? null : photos[activeIndex];
@@ -64,6 +66,8 @@ export default function GalleryView({
         <span className="gallery-header-center">PHOTOGRAPHY / PRIVATE COLLECTION</span>
         {isDemo ? (
           <span className="gallery-header-right">DESIGN PREVIEW</span>
+        ) : sharedAccess ? (
+          <span className="gallery-header-right">PRIVATE LINK ACCESS</span>
         ) : (
           <Link className="gallery-header-right gallery-header-link" href="/collections">MY COLLECTIONS ↗</Link>
         )}
