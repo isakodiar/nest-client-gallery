@@ -74,3 +74,86 @@ Import this repository into Vercel, use the Next.js framework preset, and add th
 ## Current scope / next iteration
 
 This is the first client-facing version. The current gallery UI displays photographs. The database and private storage are prepared to register other asset types, but video playback, general file downloads, bulk uploads, automatic preview generation, project administration, and client invitations still need to be implemented.
+
+## Low-friction one-time delivery (work in progress on feature branch)
+
+One-time customers should **not** need to log in. NEST can send a private direct
+link via WhatsApp: `https://nestclientgallery.netlify.app/s/<64-character-token>`.
+
+The original authenticated flow at `/login`, `/collections`, and `/g/[slug]`
+remains available for recurrent/monthly clients.
+
+### Setup and privacy
+
+1. Apply `supabase/migrations/0002_client_share_links.sql` in the Supabase SQL Editor,
+   **after** the original database migration.
+2. In Netlify, set `SUPABASE_SECRET_KEY` using the project's **new** `sb_secret_...`
+   key. Restrict this environment variable to server-side Functions, including
+   production and previews as appropriate. **Never prefix it with `NEXT_PUBLIC_`,
+   and never send it to a customer or commit it to GitHub.**
+3. Redeploy the Next.js app. The share routes run on the server and authorize a
+   hash of the link token **before** accessing Supabase with its secret key.
+4. Keep Storage `gallery-media` private; do not grant anonymous SELECT access
+   to Storage or galleries.
+5. The gallery must have `is_published = true` and its photos registered in
+   `public.photos`. Unpublished galleries remain inaccessible even with a link.
+6. Generate a random share link in Supabase SQL Editor:
+
+```sql
+-- Replace the slug with a gallery that has already been created and published.
+with generated as (
+  select encode(gen_random_bytes(32), 'hex') as token
+), created as (
+  insert into public.gallery_share_links (gallery_id, token_hash, expires_at)
+  select g.id, encode(digest(generated.token, 'sha256'), 'hex'),
+         now() + interval '30 days'
+  from public.galleries g cross join generated
+  where g.slug = 'star-wars' and g.is_published = true
+  returning id
+)
+select created.id as link_id,
+       'https://nestclientgallery.netlify.app/s/' || generated.token as private_url
+from generated cross join created;
+```
+
+The returned private URL is the **only** copy of the raw token. Copy it directly
+into the customer's WhatsApp conversation, and avoid forwarding it elsewhere.
+Store the `link_id` if you need to revoke it. To revoke from SQL Editor:
+
+```sql
+-- Replace with the link_id returned when the link was created.
+update public.gallery_share_links
+set revoked_at = now()
+where id = 'REPLACE-WITH-LINK-UUID';
+```
+
+Anyone possessing a valid token can access that gallery until the link expires
+or is revoked. Unlike an authenticated user, a link holder is **not** personally
+identified. Never reuse links across clients. The page disables indexing,
+referrers and caching. Supabase preview URLs expire after 10 minutes and file
+download URLs after 60 seconds; signed URLs already minted may stay usable for
+their remaining lifetime even after a share link is revoked.
+
+### Downloading complete galleries larger than the Free-tier per-file limit
+
+This project intentionally **does not** assemble a large ZIP in a Netlify Function,
+because serverless response-size/memory limits can interrupt downloads.
+
+Instead, create one or more ZIP parts, each below the bucket's configured
+50 MB file-size limit. Upload them to
+`gallery-media/GALLERY_UUID/assets/` and register each in `public.assets`:
+
+```sql
+insert into public.assets
+  (gallery_id, asset_type, storage_path, filename, mime_type, sort_order)
+values
+  ('GALLERY_UUID', 'archive', 'GALLERY_UUID/assets/star-wars-01.zip',
+   'star-wars-01.zip', 'application/zip', 1),
+  ('GALLERY_UUID', 'archive', 'GALLERY_UUID/assets/star-wars-02.zip',
+   'star-wars-02.zip', 'application/zip', 2);
+```
+
+The direct-link gallery shows a download button for each archive part,
+while also supporting individual photo downloads.
+In the future, NEST will provide an administrator dashboard to create/revoke
+links and upload collection ZIPs without using SQL Editor.
