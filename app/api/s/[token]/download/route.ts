@@ -4,7 +4,7 @@ import { getSharedGallery } from "@/lib/share-links";
 type RouteContext = { params: Promise<{ token: string }> };
 export const dynamic = "force-dynamic";
 
-export async function GET(_request: NextRequest, { params }: RouteContext) {
+export async function GET(request: NextRequest, { params }: RouteContext) {
   const { token } = await params;
   const shared = await getSharedGallery(token);
   if (!shared) {
@@ -13,12 +13,21 @@ export async function GET(_request: NextRequest, { params }: RouteContext) {
 
   // Deliver an uploaded collection ZIP through a short-lived signed URL.
   // This avoids Netlify function response-size limits for 30+ originals.
-  const { data: archive, error } = await shared.supabase
+  const archiveId = request.nextUrl.searchParams.get("archive");
+  if (archiveId && !/^[a-f0-9-]{36}$/.test(archiveId)) {
+    return NextResponse.json({ error: "Archive unavailable" }, { status: 404 });
+  }
+
+  let query = shared.supabase
     .from("assets")
     .select("storage_path,filename")
     .eq("gallery_id", shared.gallery.id)
     .eq("asset_type", "archive")
-    .eq("is_downloadable", true)
+    .eq("is_downloadable", true);
+
+  if (archiveId) query = query.eq("id", archiveId);
+
+  const { data: archive, error } = await query
     .order("sort_order", { ascending: true })
     .limit(1)
     .maybeSingle();
