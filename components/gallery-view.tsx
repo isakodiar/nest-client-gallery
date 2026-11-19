@@ -23,6 +23,7 @@ type GalleryViewProps = {
   downloadAllHref?: string;
   isDemo?: boolean;
   sharedAccess?: boolean;
+  collectionDownloads?: { href: string; label: string }[];
 };
 
 function formatIndex(index: number) {
@@ -38,9 +39,11 @@ export default function GalleryView({
   downloadAllHref,
   isDemo = false,
   sharedAccess = false,
+  collectionDownloads,
 }: GalleryViewProps) {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const activePhoto = activeIndex === null ? null : photos[activeIndex];
+  const downloadLinks = collectionDownloads ?? (downloadAllHref ? [{href: downloadAllHref, label: "DOWNLOAD COLLECTION"}] : []);
 
   useEffect(() => {
     if (activeIndex === null) return;
@@ -119,10 +122,14 @@ export default function GalleryView({
             <span className="eyebrow">THE SELECTED FRAMES</span>
             <strong>{String(photos.length).padStart(2, "0")} <span>PHOTOGRAPHS</span></strong>
           </div>
-          {downloadAllHref && photos.length > 0 ? (
-            <a className="download-collection" href={downloadAllHref}>
-              DOWNLOAD COLLECTION <ArrowDownToLine size={15} />
-            </a>
+          {downloadLinks.length > 0 && photos.length > 0 ? (
+            <div className="download-collection-group">
+              {downloadLinks.map((download) => (
+                <a className="download-collection" href={download.href} key={download.href}>
+                  {download.label} <ArrowDownToLine size={15} />
+                </a>
+              ))}
+            </div>
           ) : (
             <span className="preview-stamp">{isDemo ? "SAMPLE IMAGERY / NOT FOR DOWNLOAD" : "YOUR COLLECTION IS BEING PREPARED"}</span>
           )}
