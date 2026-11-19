@@ -49,12 +49,19 @@ export default async function SharedGalleryPage({ params }: PageProps) {
   // serverless hosting, including sessions with more than 30 photos.
   const { data: archives } = await supabase
     .from("assets")
-    .select("id")
+    .select("id,filename")
     .eq("gallery_id", gallery.id)
     .eq("asset_type", "archive")
     .eq("is_downloadable", true)
     .order("sort_order", { ascending: true })
-    .limit(1);
+    .limit(20);
+
+  const collectionDownloads = (archives || []).map((archive, index, all) => ({
+    href: `/api/s/${token}/download?archive=${archive.id}`,
+    label: all.length === 1
+      ? "DOWNLOAD COLLECTION"
+      : `DOWNLOAD PART ${String(index + 1).padStart(2, "0")} OF ${String(all.length).padStart(2, "0")}`,
+  }));
 
   return (
     <GalleryView
@@ -63,7 +70,7 @@ export default async function SharedGalleryPage({ params }: PageProps) {
       description={gallery.description}
       dateLabel={gallery.event_date || "NEST STUDIO"}
       photos={photos.filter((photo) => Boolean(photo.src))}
-      downloadAllHref={archives?.length ? `/api/s/${token}/download` : undefined}
+      collectionDownloads={collectionDownloads}
       sharedAccess
     />
   );
