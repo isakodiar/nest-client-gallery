@@ -134,7 +134,6 @@ export default function GalleryView({
           <div className="gallery-title-block">
             <p className="eyebrow">CURATED WITH INTENTION / MADE TO KEEP</p>
             <h1>{title}</h1>
-            <span className="gallery-title-signature">The NEST collection.</span>
           </div>
           <div className="gallery-intro-copy">
             <p>{description || "Una colección privada de fotografías, preparada por NEST para conservar y compartir."}</p>
@@ -167,16 +166,6 @@ export default function GalleryView({
             <p>Las fotografías de esta colección estarán disponibles próximamente.</p>
           </div>
         )}
-
-        <div className="gallery-marquee" aria-label="Curated by NEST Creative Delivery">
-          <div className="gallery-marquee-track">NEST / CREATIVE DELIVERY / PRIVATE COLLECTION / MADE TO KEEP / NEST / CREATIVE DELIVERY / PRIVATE COLLECTION / MADE TO KEEP /</div>
-        </div>
-
-        <div className="gallery-steps" aria-label="Cómo disfrutar tu galería">
-          <div><span>01 / EXPLORE</span><strong>EXPLORE YOUR FRAMES.</strong><p>Recorre las imágenes seleccionadas para tu colección.</p></div>
-          <div><span>02 / ENJOY</span><strong>TAKE IT ALL IN.</strong><p>Abre cada fotografía para verla con todo detalle.</p></div>
-          <div><span>03 / KEEP</span><strong>MAKE THEM YOURS.</strong><p>Descarga cada imagen o los paquetes disponibles.</p></div>
-        </div>
 
         <div className="collection-toolbar">
           <div className="collection-count">
