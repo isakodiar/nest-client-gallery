@@ -130,6 +130,7 @@ button { color: inherit; }
 .collection-count { display: flex; flex-direction: column; gap: 8px; }
 .collection-count strong { font-family: var(--serif); font-size: 26px; font-weight: 400; letter-spacing: -.04em; }
 .collection-count strong span { font-family: var(--sans); font-size: 8px; font-weight: 700; letter-spacing: .14em; }
+.download-collection-group { display: flex; gap: 8px; flex-wrap: wrap; justify-content: flex-end; }
 .download-collection { display: inline-flex; align-items: center; gap: 14px; padding: 13px 16px; border: 1px solid var(--ink); font-size: 8px; font-weight: 700; letter-spacing: .14em; }
 .download-collection:hover { background: var(--ink); color: var(--paper); }
 .preview-stamp { color: var(--muted); font-size: 8px; letter-spacing: .12em; }

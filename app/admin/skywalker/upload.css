@@ -1,0 +1,52 @@
+.skywalker-admin { min-height: 100svh; display: flex; flex-direction: column; background: var(--paper); color: var(--ink); }
+.skywalker-admin-header { height: 86px; display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 0 5vw; border-bottom: 1px solid var(--nest-red); }
+.skywalker-admin-header > span, .skywalker-admin-header > a { color: var(--muted); font-size: 9px; font-weight: 800; letter-spacing: .14em; }
+.skywalker-admin-header > a { color: var(--nest-red); }
+.skywalker-admin-content { width: min(780px, calc(100% - 10vw)); margin: auto; padding: 66px 0 80px; }
+.skywalker-admin-content h1 { margin: 22px 0 17px; color: var(--nest-red); font: 900 clamp(74px, 10vw, 126px)/.78 var(--nest-condensed); letter-spacing: -.04em; text-transform: uppercase; }
+.skywalker-admin-content h1 span { color: var(--ink); }
+.skywalker-admin-intro { max-width: 490px; margin: 0 0 39px; color: var(--muted); font: 400 14px/1.75 var(--nest-grotesk); }
+.skywalker-upload-workspace { border-top: 2px solid var(--nest-red); }
+.skywalker-upload-panel { padding: 27px 0 30px; }
+.skywalker-upload-field { display: flex; flex-direction: column; gap: 9px; margin-bottom: 20px; }
+.skywalker-upload-field span { color: var(--nest-red); font-size: 9px; font-weight: 800; letter-spacing: .15em; }
+.skywalker-upload-field input { height: 52px; width: 100%; padding: 0 15px; border: 1px solid var(--line); outline: 0; background: var(--nest-white); color: var(--ink); font: 500 13px var(--nest-grotesk); }
+.skywalker-upload-field input:focus { border-color: var(--nest-red); }
+.skywalker-dropzone { min-height: 180px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; padding: 25px; border: 1px dashed rgba(183,31,61,.55); background: var(--paper-deep); text-align: center; cursor: pointer; transition: background .2s, border-color .2s; }
+.skywalker-dropzone:hover, .skywalker-dropzone--selected { border-color: var(--nest-red); background: rgba(183,31,61,.06); }
+.skywalker-dropzone input { position: absolute; width: 1px; height: 1px; overflow: hidden; opacity: 0; }
+.skywalker-dropzone svg { color: var(--nest-red); }
+.skywalker-dropzone strong { max-width: 100%; overflow-wrap: anywhere; color: var(--ink); font: 800 23px var(--nest-condensed); text-transform: uppercase; }
+.skywalker-dropzone span { color: var(--muted); font-size: 8px; font-weight: 800; letter-spacing: .13em; }
+.skywalker-upload-submit { width: 100%; min-height: 55px; display: flex; align-items: center; justify-content: space-between; gap: 15px; margin-top: 22px; padding: 0 18px; border: 1px solid var(--nest-red); background: var(--nest-red); color: white; font: 800 10px var(--nest-grotesk); letter-spacing: .15em; cursor: pointer; }
+.skywalker-upload-submit:hover:not(:disabled) { border-color: var(--ink); background: var(--ink); }
+.skywalker-upload-submit:disabled { opacity: .4; cursor: not-allowed; }
+.skywalker-progress { margin-top: 21px; }
+.skywalker-progress-copy { display: flex; justify-content: space-between; gap: 15px; margin-bottom: 9px; color: var(--muted); font-size: 10px; }
+.skywalker-progress-copy strong { color: var(--nest-red); font-variant-numeric: tabular-nums; }
+.skywalker-progress-track { height: 4px; overflow: hidden; background: var(--paper-deep); }
+.skywalker-progress-track span { display: block; height: 100%; background: var(--nest-red); transition: width .2s ease; }
+.skywalker-upload-error, .skywalker-upload-success { margin: 15px 0 0; font-size: 11px; line-height: 1.65; }
+.skywalker-upload-error { color: #a12c3d; }
+.skywalker-upload-success { color: #3f674b; }
+.skywalker-share-result { padding: 28px; border: 1px solid var(--nest-red); background: var(--paper-deep); }
+.skywalker-share-result h2 { margin: 15px 0; color: var(--nest-red); font: 900 clamp(42px, 6vw, 68px)/.86 var(--nest-condensed); text-transform: uppercase; }
+.skywalker-share-result h2 span { color: var(--ink); }
+.skywalker-share-result > p:not(.eyebrow) { max-width: 490px; color: var(--muted); font: 400 13px/1.65 var(--nest-grotesk); }
+.skywalker-share-url { margin: 18px 0 12px; padding: 13px; overflow-wrap: anywhere; border: 1px solid var(--line); background: var(--paper); font: 500 11px/1.6 var(--nest-grotesk); }
+.skywalker-share-result button, .skywalker-share-result a { min-height: 46px; display: inline-flex; align-items: center; justify-content: center; gap: 9px; margin: 8px 8px 0 0; padding: 0 15px; border: 1px solid var(--nest-red); background: var(--nest-red); color: white; font: 800 9px var(--nest-grotesk); letter-spacing: .12em; cursor: pointer; }
+.skywalker-share-result a { background: transparent; color: var(--nest-red); text-decoration: none; }
+.skywalker-share-result button:hover, .skywalker-share-result a:hover { border-color: var(--ink); background: var(--ink); color: white; }
+.skywalker-upload-note { margin: 18px 0 0; color: var(--muted); font: 700 8px/1.7 var(--nest-grotesk); letter-spacing: .08em; }
+.skywalker-spinner { animation: spin 1s linear infinite; }
+.skywalker-admin-footer { display: flex; justify-content: space-between; gap: 20px; padding: 20px 5vw 23px; border-top: 1px solid var(--nest-red); color: var(--muted); font-size: 8px; letter-spacing: .13em; }
+@media (max-width: 640px) {
+  .skywalker-admin-header { height: 68px; padding: 0 20px; }
+  .skywalker-admin-header > span { display: none; }
+  .skywalker-admin-header .brand-mark { width: 125px; }
+  .skywalker-admin-content { width: calc(100% - 40px); padding: 47px 0 58px; }
+  .skywalker-admin-content h1 { font-size: clamp(65px, 17vw, 88px); }
+  .skywalker-admin-intro { font-size: 13px; }
+  .skywalker-share-result { padding: 20px; }
+  .skywalker-admin-footer { flex-direction: column; padding: 17px 20px; font-size: 7px; }
+}

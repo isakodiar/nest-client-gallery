@@ -2,6 +2,7 @@ import "./collections.css";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { ArrowUpRight } from "lucide-react";
+import BrandMark from "@/components/brand-mark";
 import { signOutAction } from "@/app/actions";
 import { createClient } from "@/lib/supabase/server";
 
@@ -23,19 +24,20 @@ export default async function CollectionsPage() {
     .order("created_at", { ascending: false });
 
   return (
-    <main className="collections-page">
+    <main className="collections-page nest-redesign">
       <header className="collections-header">
-        <Link className="wordmark" href="/">NEST<span>®</span></Link>
-        <span>YOUR PRIVATE COLLECTIONS</span>
+        <BrandMark priority />
+        <span>CREATIVE DELIVERY / MEMBERS AREA</span>
         <form action={signOutAction}>
           <button type="submit">SIGN OUT ↗</button>
         </form>
       </header>
 
       <section className="collections-content">
-        <p className="eyebrow">NEST / CLIENT SPACE</p>
-        <h1>Your moments,<br /><em>collected.</em></h1>
-        <p className="collections-intro">A private place for the photographs made with you. Select a collection to revisit and download your images.</p>
+        <div className="collections-intro-block"><p className="eyebrow">NEST / YOUR COLLECTIONS / 001</p>
+        <h1>YOUR WORK.<br /><em>ALL HERE.</em></h1>
+        <p className="collections-intro">Un espacio para volver a tus sesiones, explorar tus proyectos y descargar tus entregables de NEST.</p></div>
+        <div className="collections-marquee">PRIVATE COLLECTIONS / CURATED BY NEST / PRIVATE COLLECTIONS / CURATED BY NEST /</div>
 
         {galleries?.length ? (
           <div className="collection-list">
@@ -64,7 +66,7 @@ export default async function CollectionsPage() {
 
       <footer className="collections-footer">
         <span>© NEST STUDIO</span>
-        <span>PRIVATE COLLECTIONS / PERSONAL ACCESS</span>
+        <span>CREATIVE DELIVERY / PERSONAL ACCESS</span>
       </footer>
     </main>
   );
