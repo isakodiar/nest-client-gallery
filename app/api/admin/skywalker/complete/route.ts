@@ -83,7 +83,8 @@ export async function POST(request: NextRequest) {
 
     if (linkError) throw linkError;
 
-    // Use the host that received this request so Deploy Previews generate links to themselves, not production.\n    const baseUrl = (request.nextUrl.origin || process.env.NEXT_PUBLIC_SITE_URL || "https://nestclientgallery.netlify.app").replace(/\/+$/, "");
+    // Use the host that received this request so Deploy Previews generate links to themselves, not production.
+    const baseUrl = (request.nextUrl.origin || process.env.NEXT_PUBLIC_SITE_URL || "https://nestclientgallery.netlify.app").replace(/\/+$/, "");
     const shareUrl = baseUrl + "/s/" + token;
 
     return NextResponse.json({
