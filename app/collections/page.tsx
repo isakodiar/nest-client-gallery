@@ -27,6 +27,7 @@ export default async function CollectionsPage() {
       <header className="collections-header">
         <Link className="wordmark" href="/">NEST<span>®</span></Link>
         <span>YOUR PRIVATE COLLECTIONS</span>
+        <Link className="collections-upload-link" href="/collections/upload">UPLOAD SESSION ↗</Link>
         <form action={signOutAction}>
           <button type="submit">SIGN OUT ↗</button>
         </form>
