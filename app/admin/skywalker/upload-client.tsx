@@ -90,7 +90,7 @@ async function createPreview(file: File): Promise<Blob | null> {
 
 type UploadResult = { ok?: boolean; error?: string; shareUrl?: string; expiresAt?: string };
 
-export default function UploadClient() {
+export default function UploadClient({ configurationIssue = "" }: { configurationIssue?: string }) {
   const [adminCode, setAdminCode] = useState("");
   const [archive, setArchive] = useState<File | null>(null);
   const [busy, setBusy] = useState(false);
@@ -234,6 +234,7 @@ export default function UploadClient() {
           </div>
         ) : null}
 
+        {configurationIssue ? <p className="skywalker-upload-error">{configurationIssue}</p> : null}
         {error ? <p className="skywalker-upload-error">{error}</p> : null}
         {message && !busy ? <p className="skywalker-upload-success">{message}</p> : null}
 
@@ -241,7 +242,7 @@ export default function UploadClient() {
           className="skywalker-upload-submit"
           type="button"
           onClick={handleUpload}
-          disabled={!archive || !adminCode.trim() || busy}
+          disabled={!archive || !adminCode.trim() || busy || Boolean(configurationIssue)}
         >
           {busy ? <><LoaderCircle className="skywalker-spinner" size={17} /> CARGANDO COLECCIÓN…</> : <>UPLOAD COLLECTION <ArrowUpRight size={17} /></>}
         </button>
