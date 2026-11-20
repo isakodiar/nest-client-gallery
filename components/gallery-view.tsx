@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import BrandMark from "@/components/brand-mark";
+import JSZip from "jszip";
 import { useEffect, useState } from "react";
 import { ArrowDownToLine, ChevronLeft, ChevronRight, Moon, Sun, X } from "lucide-react";
 
@@ -44,8 +45,41 @@ export default function GalleryView({
 }: GalleryViewProps) {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const [darkMode, setDarkMode] = useState(false);
+  const [downloadingCollection, setDownloadingCollection] = useState(false);
+  const [downloadError, setDownloadError] = useState("");
   const activePhoto = activeIndex === null ? null : photos[activeIndex];
   const downloadLinks = collectionDownloads ?? (downloadAllHref ? [{href: downloadAllHref, label: "DOWNLOAD COLLECTION"}] : []);
+
+  async function downloadCompleteCollection() {
+    if (downloadingCollection || !photos.length) return;
+    setDownloadingCollection(true);
+    setDownloadError("");
+    try {
+      const zip = new JSZip();
+      for (let index = 0; index < photos.length; index += 1) {
+        const photo = photos[index];
+        if (!photo.downloadHref) throw new Error("Falta el enlace de descarga de una fotografía.");
+        const response = await fetch(photo.downloadHref, { cache: "no-store" });
+        if (!response.ok) throw new Error("No se pudo descargar " + (photo.filename || "una fotografía") + ".");
+        const blob = await response.blob();
+        const filename = photo.filename || "photograph-" + formatIndex(index) + ".jpg";
+        zip.file(formatIndex(index) + "-" + filename, blob);
+      }
+      const archive = await zip.generateAsync({ type: "blob", compression: "STORE" });
+      const objectUrl = URL.createObjectURL(archive);
+      const anchor = document.createElement("a");
+      anchor.href = objectUrl;
+      anchor.download = title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") + "-NEST.zip";
+      document.body.appendChild(anchor);
+      anchor.click();
+      anchor.remove();
+      URL.revokeObjectURL(objectUrl);
+    } catch (error) {
+      setDownloadError(error instanceof Error ? error.message : "No se pudo preparar el ZIP.");
+    } finally {
+      setDownloadingCollection(false);
+    }
+  }
 
   useEffect(() => {
     if (activeIndex === null) return;
@@ -149,7 +183,14 @@ export default function GalleryView({
             <span className="eyebrow">YOUR COLLECTION / SELECTED FRAMES</span>
             <strong>{String(photos.length).padStart(2, "0")} <span>PHOTOGRAPHS</span></strong>
           </div>
-          {downloadLinks.length > 0 && photos.length > 0 ? (
+          {sharedAccess && photos.length > 0 ? (
+            <div className="download-collection-group">
+              <button className="download-collection" type="button" onClick={downloadCompleteCollection} disabled={downloadingCollection}>
+                {downloadingCollection ? "PREPARING ZIP…" : "DOWNLOAD ALL PHOTOGRAPHS"} {downloadingCollection ? null : <ArrowDownToLine size={15} />}
+              </button>
+              {downloadError ? <span className="preview-stamp">{downloadError}</span> : null}
+            </div>
+          ) : downloadLinks.length > 0 && photos.length > 0 ? (
             <div className="download-collection-group">
               {downloadLinks.map((download) => (
                 <a className="download-collection" href={download.href} key={download.href}>
