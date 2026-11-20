@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import BrandMark from "@/components/brand-mark";
 import { useEffect, useState } from "react";
-import { ArrowDownToLine, ChevronLeft, ChevronRight, X } from "lucide-react";
+import { ArrowDownToLine, ChevronLeft, ChevronRight, Moon, Sun, X } from "lucide-react";
 
 export type GalleryPhoto = {
   id: string;
@@ -43,6 +43,7 @@ export default function GalleryView({
   collectionDownloads,
 }: GalleryViewProps) {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
+  const [darkMode, setDarkMode] = useState(false);
   const activePhoto = activeIndex === null ? null : photos[activeIndex];
   const downloadLinks = collectionDownloads ?? (downloadAllHref ? [{href: downloadAllHref, label: "DOWNLOAD COLLECTION"}] : []);
 
@@ -64,17 +65,29 @@ export default function GalleryView({
   }, [activeIndex, photos.length]);
 
   return (
-    <main className="gallery-page">
+    <main className={"gallery-page" + (darkMode ? " gallery-page--dark" : "")}>
       <header className="gallery-header">
         <BrandMark priority />
         <span className="gallery-header-center">NEST CREATIVE DELIVERY / PRIVATE COLLECTION</span>
-        {isDemo ? (
-          <span className="gallery-header-right">DESIGN PREVIEW</span>
-        ) : sharedAccess ? (
-          <span className="gallery-header-right">PRIVATE LINK ACCESS</span>
-        ) : (
-          <Link className="gallery-header-right gallery-header-link" href="/collections">MY COLLECTIONS ↗</Link>
-        )}
+        <div className="gallery-header-actions">
+          <button
+            className="gallery-theme-toggle"
+            type="button"
+            onClick={() => setDarkMode((current) => !current)}
+            aria-pressed={darkMode}
+            aria-label={darkMode ? "Switch to light edition" : "Switch to dark edition"}
+          >
+            {darkMode ? <Sun size={14} /> : <Moon size={14} />}
+            <span>{darkMode ? "LIGHT EDITION" : "DARK EDITION"}</span>
+          </button>
+          {isDemo ? (
+            <span className="gallery-header-right">DESIGN PREVIEW</span>
+          ) : sharedAccess ? (
+            <span className="gallery-header-right">PRIVATE LINK ACCESS</span>
+          ) : (
+            <Link className="gallery-header-right gallery-header-link" href="/collections">MY COLLECTIONS ↗</Link>
+          )}
+        </div>
       </header>
 
       <section className="gallery-content">
