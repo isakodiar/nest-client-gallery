@@ -17,7 +17,6 @@ type UploadClientProps = {
   ownerId: string;
 };
 
-const COVER_FILENAME = "andy anakin (20).png";
 const PREFERRED_ORDER = [
   "andy anakin (20).png",
   "andy anakin (27).png",
@@ -168,14 +167,6 @@ export default function UploadClient({ galleries: initialGalleries, ownerId }: U
         throw new Error("No encontré fotografías JPG, PNG o WEBP dentro del ZIP.");
       }
 
-      const imageSizes = entries.map((entry) => {
-        const size = entry._data?.uncompressedSize;
-        return typeof size === "number" ? size : 0;
-      });
-      if (imageSizes.some((size) => size > MAX_FILE_BYTES)) {
-        throw new Error("Una de las fotografías supera el límite de 50 MB por archivo de tu bucket de Supabase.");
-      }
-
       setTotal(entries.length);
 
       if (createNew) {
@@ -224,6 +215,9 @@ export default function UploadClient({ galleries: initialGalleries, ownerId }: U
         const filename = entry.name.split("/").pop() || entry.name;
         const mimeType = getMimeType(filename);
         const rawBlob = await entry.async("blob");
+        if (rawBlob.size > MAX_FILE_BYTES) {
+          throw new Error(filename + " supera el límite de 50 MB por archivo de tu bucket de Supabase.");
+        }
         const originalFile = new File([rawBlob], filename, { type: mimeType });
         const uniqueId = crypto.randomUUID();
         const basePath = targetGalleryId + "/";
