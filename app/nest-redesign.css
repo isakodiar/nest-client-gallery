@@ -513,3 +513,49 @@
   .gallery-theme-toggle svg { width: 12px; height: 12px; }
 }
 
+
+
+/* Final SKYWALKER delivery polish: no serif or script typography in the gallery. */
+.gallery-page,
+.gallery-page button,
+.gallery-page a {
+  font-family: var(--nest-grotesk);
+}
+.gallery-page .gallery-heading h1,
+.gallery-page .collection-count strong,
+.gallery-page .cover-editorial-headline,
+.gallery-page .photo-open-hint {
+  font-family: var(--nest-condensed);
+  font-style: normal;
+  text-transform: uppercase;
+}
+.gallery-page .gallery-title-signature,
+.gallery-page .gallery-intro-copy p,
+.gallery-page .gallery-empty p,
+.gallery-page .gallery-footer p,
+.gallery-page .collection-count strong span {
+  font-family: var(--nest-grotesk);
+  font-style: normal;
+}
+.gallery-page .gallery-footer p {
+  font-size: 12px;
+  letter-spacing: .02em;
+}
+.gallery-page .gallery-content {
+  padding-bottom: 12px;
+}
+.gallery-page .gallery-cover {
+  border: 3px solid var(--nest-red);
+}
+.gallery-page--dark .gallery-cover {
+  border-color: #d12b4c;
+}
+.gallery-page .gallery-header {
+  background: var(--paper);
+}
+.gallery-page--dark .gallery-header {
+  background: #101115;
+}
+.gallery-page .photo-grid {
+  padding-top: 22px;
+}
