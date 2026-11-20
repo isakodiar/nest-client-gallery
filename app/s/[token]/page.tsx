@@ -32,7 +32,7 @@ export default async function SharedGalleryPage({ params }: PageProps) {
     (photoRows || []).map(async (photo) => {
       const { data } = await supabase.storage
         .from("gallery-media")
-        .createSignedUrl(photo.preview_path || photo.storage_path, 10 * 60);
+        .createSignedUrl(photo.preview_path || photo.storage_path, 60 * 60);
 
       return {
         id: photo.id,
