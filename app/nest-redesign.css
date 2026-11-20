@@ -559,3 +559,29 @@
 .gallery-page .photo-grid {
   padding-top: 22px;
 }
+
+
+/* Empty preview state before the real collection is uploaded. */
+.gallery-page .gallery-empty {
+  min-height: clamp(300px, 38vw, 470px);
+  border: 2px dashed var(--nest-red);
+  background: var(--paper-deep);
+}
+.gallery-page .gallery-empty span {
+  color: var(--nest-red);
+  font-family: var(--nest-condensed);
+  font-size: clamp(20px, 3vw, 32px);
+  font-weight: 900;
+  letter-spacing: .06em;
+}
+.gallery-page .gallery-empty p {
+  max-width: 460px;
+  padding: 0 24px;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.7;
+}
+.gallery-page--dark .gallery-empty {
+  border-color: #d12b4c;
+  background: #17191e;
+}
