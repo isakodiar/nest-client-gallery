@@ -157,3 +157,31 @@ The direct-link gallery shows a download button for each archive part,
 while also supporting individual photo downloads.
 In the future, NEST will provide an administrator dashboard to create/revoke
 links and upload collection ZIPs without using SQL Editor.
+
+
+## SKYWALKER one-time delivery (administrator upload)
+
+This delivery uses a **direct private link**, not email sign-in. The existing email-based
+`/login` flow remains available for recurrent/monthly clients.
+
+1. Apply migrations `0002_client_share_links.sql` and `0003_one_off_gallery_owner.sql`
+   to the NEST Supabase project (already applied to the connected project).
+2. In Netlify Site configuration → Environment variables, add:
+   - `SUPABASE_SECRET_KEY`: the project's server-only `sb_secret_...` key.
+   - `NEST_ADMIN_CODE`: a long random administrator password, at least 32 characters.
+   - `NEXT_PUBLIC_SITE_URL`: `https://nestclientgallery.netlify.app`.
+3. Keep `SUPABASE_SECRET_KEY` and `NEST_ADMIN_CODE` server-only. Never add a
+   `NEXT_PUBLIC_` prefix to either secret. Do not place them in GitHub or send them in chat.
+4. Deploy the `feature/direct-client-share-links` branch to a Netlify Deploy Preview.
+5. Open `/admin/skywalker`, enter the administrator code and upload the ZIP containing
+   exactly 38 JPG/PNG/WEBP photographs. The upload route processes one image per request,
+   keeps originals and WebP previews in the private `gallery-media` bucket, and orders
+   `andy anakin (20).png` as the cover.
+6. After all 38 photos are stored, the app publishes the gallery and creates a random,
+   90-day private link at `/s/<token>`. Copy that link to the client.
+7. The client can view the gallery without an account or email, download each original,
+   or download all originals as a ZIP generated in the browser.
+
+The one-time gallery is not listed publicly and Storage remains private. A valid share
+link is a bearer credential: anyone who has it can view and download the collection until
+it expires or is revoked. Keep it limited to the intended client.
