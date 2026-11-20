@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import GalleryView, { GalleryPhoto } from "@/components/gallery-view";
 
-export const metadata: Metadata = { title: "Editorial gallery preview" };
+export const metadata: Metadata = { title: "SKYWALKER PHOTOSHOOT — NEST" };
 
 const samplePhotos: GalleryPhoto[] = [
   {
@@ -50,7 +50,7 @@ export default function PreviewPage() {
         <span>Las imágenes son referencias temporales, no fotografías de la entrega Star Wars.</span>
       </div>
       <GalleryView
-        title="STAR WARS"
+        title="SKYWALKER PHOTOSHOOT"
         clientName="A NEST PHOTOGRAPHY COLLECTION"
         description="Una colección creada para volver a esos momentos. Cada imagen, seleccionada y preparada para conservarse en alta resolución."
         dateLabel="NOVEMBER 2026"
