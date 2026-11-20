@@ -163,7 +163,7 @@ export default function GalleryView({
         ) : (
           <div className="gallery-empty">
             <span>COLLECTION IN PROGRESS</span>
-            <p>Las fotografías de esta colección estarán disponibles próximamente.</p>
+            <p>La colección final mostrará aquí las 38 fotografías originales en alta resolución.</p>
           </div>
         )}
 
@@ -188,7 +188,7 @@ export default function GalleryView({
               ))}
             </div>
           ) : (
-            <span className="preview-stamp">{isDemo ? "SAMPLE IMAGERY / NOT FOR DOWNLOAD" : "YOUR COLLECTION IS BEING PREPARED"}</span>
+            <span className="preview-stamp">{isDemo ? "DESIGN PREVIEW / ORIGINAL PHOTOS PENDING" : "YOUR COLLECTION IS BEING PREPARED"}</span>
           )}
         </div>
 
