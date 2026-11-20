@@ -4,12 +4,23 @@ import BrandMark from "@/components/brand-mark";
 import UploadClient from "./upload-client";
 import "./upload.css";
 
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
   title: "Private media intake",
   robots: { index: false, follow: false, noarchive: true },
 };
 
 export default function SkywalkerUploadPage() {
+  const missing = [
+    !process.env.NEXT_PUBLIC_SUPABASE_URL ? "NEXT_PUBLIC_SUPABASE_URL" : null,
+    !(process.env.SUPABASE_SECRET_KEY || process.env.SUPABASE_SERVICE_ROLE_KEY) ? "SUPABASE_SECRET_KEY" : null,
+    !process.env.NEST_ADMIN_CODE ? "NEST_ADMIN_CODE" : null,
+  ].filter(Boolean);
+  const configurationIssue = missing.length
+    ? "Falta configurar en Netlify: " + missing.join(", ") + ". No es necesario compartir ninguna clave por chat."
+    : "";
+
   return (
     <main className="skywalker-admin nest-redesign">
       <header className="skywalker-admin-header">
@@ -25,7 +36,7 @@ export default function SkywalkerUploadPage() {
           Carga el ZIP original. NEST organizará las 38 fotografías, preparará
           vistas optimizadas y generará un enlace privado para compartir la colección.
         </p>
-        <UploadClient />
+        <UploadClient configurationIssue={configurationIssue} />
       </section>
 
       <footer className="skywalker-admin-footer">
