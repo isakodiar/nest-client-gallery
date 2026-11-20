@@ -107,7 +107,7 @@ export default function GalleryView({
             />
             <div className="cover-gradient" />
             <div className="cover-top-label"><span>PRIVATE EDITION</span><span>NEST CREATIVE DELIVERY</span></div>
-            <div className="cover-editorial-headline" aria-hidden="true">YOUR<br /><em>MOMENTS.</em></div>
+            <div className="cover-editorial-headline" aria-label="Long time ago in a galaxy far far away"><span>LONG TIME AGO</span><span>IN A GALAXY</span><span>FAR, FAR AWAY.</span></div>
             <div className="cover-caption">
               <span>THE COLLECTION</span>
               <strong>{clientName}</strong>
@@ -187,7 +187,12 @@ export default function GalleryView({
             <BrandMark variant="white" />
             <p>Made with intention. Kept for a lifetime.</p>
           </div>
-          <div className="gallery-footer-right"><span>CREATIVE DELIVERY / PRIVATE BY DESIGN</span><span>© NEST STUDIO / ALL RIGHTS RESERVED</span></div>
+          <div className="gallery-footer-right">
+            <a href="https://www.instagram.com/isakodair/" target="_blank" rel="noreferrer">PHOTOGRAPHY BY @ISAKODAIR / INSTAGRAM ↗</a>
+            <a href="https://www.instagram.com/galiverse/" target="_blank" rel="noreferrer">COSPLAY BY @GALIVERSE / INSTAGRAM ↗</a>
+            <span>CREATIVE DELIVERY / PRIVATE BY DESIGN</span>
+            <span>© NEST STUDIO / ALL RIGHTS RESERVED</span>
+          </div>
         </footer>
       </section>
 
