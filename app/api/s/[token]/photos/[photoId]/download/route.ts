@@ -27,7 +27,7 @@ export async function GET(_request: NextRequest, { params }: RouteContext) {
 
   const { data: signed, error: signError } = await shared.supabase.storage
     .from("gallery-media")
-    .createSignedUrl(photo.storage_path, 60, { download: photo.filename });
+    .createSignedUrl(photo.storage_path, 60 * 60, { download: photo.filename });
 
   if (signError || !signed?.signedUrl) {
     return NextResponse.json({ error: "Download temporarily unavailable" }, { status: 502 });
