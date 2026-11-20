@@ -377,3 +377,139 @@
   }
 }
 
+/* LIGHT / DARK EDITIONS — dark mode keeps the NEST red as the editorial accent. */
+.gallery-header-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 18px;
+}
+.gallery-theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 34px;
+  padding: 0 11px;
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--ink);
+  font: 800 8px/1 var(--nest-grotesk);
+  letter-spacing: .12em;
+  cursor: pointer;
+  transition: background .2s ease, color .2s ease, border-color .2s ease;
+}
+.gallery-theme-toggle:hover {
+  border-color: var(--nest-red);
+  background: var(--nest-red);
+  color: white;
+}
+.gallery-theme-toggle svg { flex: 0 0 auto; }
+
+.gallery-page--dark {
+  --paper: #101115;
+  --paper-deep: #1c1e24;
+  --ink: #f3f1ed;
+  --muted: #a7a5a2;
+  --line: rgba(255,255,255,.17);
+  --nest-red: #d12b4c;
+  --nest-red-deep: #72152a;
+  --nest-white: #191b20;
+  color: var(--ink);
+  background: var(--paper);
+}
+.gallery-page--dark .gallery-header {
+  border-bottom-color: var(--line);
+  background: #101115;
+}
+.gallery-page--dark .gallery-header-center,
+.gallery-page--dark .gallery-header-right {
+  color: #c9c5c2;
+}
+.gallery-page--dark .gallery-header-link:hover { color: #ff6b86; }
+.gallery-page--dark .gallery-overline,
+.gallery-page--dark .gallery-title-block .eyebrow,
+.gallery-page--dark .collection-count .eyebrow {
+  color: #ef5470;
+}
+.gallery-page--dark .gallery-heading h1 { color: #e33a5a; }
+.gallery-page--dark .gallery-title-signature { color: #f3f1ed; }
+.gallery-page--dark .gallery-intro-copy {
+  border-top-color: #d12b4c;
+}
+.gallery-page--dark .gallery-intro-copy p { color: #e3e0dc; }
+.gallery-page--dark .gallery-intro-copy span { color: #ef5470; }
+.gallery-page--dark .gallery-cover {
+  border-color: #d12b4c;
+  background: #08090c;
+}
+.gallery-page--dark .cover-gradient {
+  background: linear-gradient(90deg,rgba(0,0,0,.72),rgba(0,0,0,.08) 68%),linear-gradient(0deg,rgba(0,0,0,.64),transparent 42%);
+}
+.gallery-page--dark .gallery-marquee {
+  background: #17191e;
+  border-color: #d12b4c;
+  color: #f05a75;
+}
+.gallery-page--dark .gallery-steps {
+  background: #d12b4c;
+}
+.gallery-page--dark .gallery-steps > div {
+  background: #191b20;
+}
+.gallery-page--dark .gallery-steps span { color: #f05a75; }
+.gallery-page--dark .gallery-steps strong { color: #f3f1ed; }
+.gallery-page--dark .gallery-steps p { color: #aaa7a3; }
+.gallery-page--dark .collection-toolbar { border-color: #d12b4c; }
+.gallery-page--dark .collection-count strong { color: #f3f1ed; }
+.gallery-page--dark .collection-count strong span { color: #aaa7a3; }
+.gallery-page--dark .download-collection {
+  border-color: rgba(255,255,255,.58);
+  color: #f3f1ed;
+}
+.gallery-page--dark .download-collection:hover {
+  border-color: #d12b4c;
+  background: #d12b4c;
+  color: white;
+}
+.gallery-page--dark .preview-stamp { color: #aaa7a3; }
+.gallery-page--dark .photo-card {
+  border-color: rgba(255,255,255,.22);
+  background: #191b20;
+}
+.gallery-page--dark .photo-card:hover { border-color: #d12b4c; }
+.gallery-page--dark .photo-meta { color: #e7e4df; }
+.gallery-page--dark .photo-meta-index { color: #aaa7a3; }
+.gallery-page--dark .photo-meta a { background: #d12b4c; }
+.gallery-page--dark .photo-meta a:hover { background: #f3f1ed; color: #101115; }
+.gallery-page--dark .gallery-empty {
+  border-color: var(--line);
+  background: #17191e;
+}
+.gallery-page--dark .gallery-empty span { color: #f05a75; }
+.gallery-page--dark .gallery-empty p { color: #c3bfba; }
+.gallery-page--dark .gallery-footer {
+  border-top: 2px solid #d12b4c;
+  background: #1b1d22;
+  color: #f3f1ed;
+}
+.gallery-page--dark .gallery-footer p { color: #c3bfba; }
+.gallery-page--dark .gallery-footer-right { color: #e8e5e0; }
+.gallery-page--dark .gallery-footer-right a { color: #fff; }
+.gallery-page--dark .gallery-footer-right a:hover { color: #ff7890; }
+
+@media (max-width: 800px) {
+  .gallery-header-actions { gap: 10px; }
+}
+@media (max-width: 540px) {
+  .gallery-header-actions { gap: 8px; }
+  .gallery-theme-toggle {
+    min-height: 30px;
+    gap: 5px;
+    padding: 0 7px;
+    font-size: 7px;
+    letter-spacing: .07em;
+  }
+  .gallery-theme-toggle svg { width: 12px; height: 12px; }
+}
+
