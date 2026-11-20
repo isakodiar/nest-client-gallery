@@ -2,6 +2,8 @@
 .collections-header { height: 76px; display: flex; align-items: center; justify-content: space-between; padding: 0 5vw; border-bottom: 1px solid var(--line); }
 .collections-header > span, .collections-header button { color: var(--muted); font-size: 8px; font-weight: 700; letter-spacing: .15em; }
 .collections-header form { margin: 0; }
+.collections-upload-link { color: #b71e3b; font-size: 8px; font-weight: 700; letter-spacing: .14em; text-decoration: none; }
+.collections-upload-link:hover { opacity: .62; }
 .collections-header button { padding: 6px 0; border: 0; background: transparent; color: var(--ink); cursor: pointer; }
 .collections-content { width: min(1050px, calc(100% - 10vw)); margin: auto; padding: 78px 0 100px; }
 .collections-content h1 { margin: 25px 0 22px; font-family: var(--serif); font-size: clamp(70px, 9vw, 124px); font-weight: 400; letter-spacing: -.075em; line-height: .82; }
@@ -24,6 +26,7 @@
 @media (max-width: 640px) {
   .collections-header { height: 64px; padding: 0 22px; }
   .collections-header > span { display: none; }
+  .collections-upload-link { margin-left: auto; margin-right: 16px; font-size: 7px; white-space: nowrap; }
   .collections-content { width: calc(100% - 44px); padding: 54px 0 65px; }
   .collections-content h1 { font-size: clamp(62px, 16vw, 88px); }
   .collections-intro { margin-bottom: 40px; font-size: 16px; }
