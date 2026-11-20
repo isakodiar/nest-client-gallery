@@ -1,5 +1,8 @@
 /* NEST Creative Delivery — visual identity, built from the supplied NEST brand assets.
    Editorial layout inspired by the user's red/white fashion-site reference. */
+@import url("https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap");
+
+
 :root {
   --paper: #f7f4ee;
   --paper-deep: #eee9df;
@@ -10,6 +13,8 @@
   --nest-red-deep: #90152d;
   --nest-white: #fffdf9;
   --nest-display: Impact, Haettenschweiler, "Arial Narrow", "Franklin Gothic Condensed", sans-serif;
+  --nest-condensed: "Barlow Condensed", "Arial Narrow", Impact, sans-serif;
+  --nest-grotesk: "Space Grotesk", "Helvetica Neue", Arial, sans-serif;
 }
 ::selection { background: var(--nest-red); color: white; }
 :focus-visible { outline: 3px solid var(--nest-red); outline-offset: 4px; }
@@ -276,3 +281,99 @@
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
 }
+
+/* SKYWALKER PHOTOSHOOT — condensed, geometric and grotesque typography only. */
+.gallery-page {
+  font-family: var(--nest-grotesk);
+}
+.gallery-page .gallery-heading h1 {
+  max-width: 100%;
+  font-family: var(--nest-condensed);
+  font-size: clamp(60px, 8.2vw, 128px);
+  font-weight: 900;
+  line-height: .86;
+  letter-spacing: -.035em;
+}
+.gallery-page .gallery-title-signature {
+  margin: 13px 0 0 13%;
+  color: var(--ink);
+  font-family: var(--nest-grotesk);
+  font-size: clamp(13px, 1.3vw, 18px);
+  font-style: normal;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  transform: none;
+}
+.gallery-page .gallery-intro-copy p,
+.gallery-page .gallery-empty p,
+.gallery-page .gallery-footer p {
+  font-family: var(--nest-grotesk);
+  font-style: normal;
+}
+.gallery-page .cover-editorial-headline {
+  top: 20%;
+  left: 3.6%;
+  width: 92%;
+  max-width: none;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  color: white;
+  font-family: var(--nest-condensed);
+  font-size: clamp(64px, 7.7vw, 132px);
+  font-weight: 900;
+  line-height: .82;
+  letter-spacing: -.035em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.gallery-page .cover-editorial-headline span {
+  display: block;
+}
+.gallery-page .gallery-footer-right {
+  gap: 10px;
+}
+.gallery-page .gallery-footer-right a {
+  color: inherit;
+  font-family: var(--nest-grotesk);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: .12em;
+  transition: opacity .2s ease;
+}
+.gallery-page .gallery-footer-right a:hover {
+  opacity: .7;
+}
+@media (max-width: 800px) {
+  .gallery-page .gallery-heading h1 {
+    font-size: clamp(56px, 10vw, 88px);
+  }
+  .gallery-page .cover-editorial-headline {
+    top: 26%;
+    font-size: clamp(48px, 9vw, 76px);
+  }
+}
+@media (max-width: 540px) {
+  .gallery-page .gallery-heading h1 {
+    font-size: clamp(43px, 12.5vw, 66px);
+    line-height: .88;
+  }
+  .gallery-page .gallery-title-signature {
+    margin: 10px 0 0;
+    font-size: 11px;
+    letter-spacing: .12em;
+  }
+  .gallery-page .cover-editorial-headline {
+    top: 31%;
+    left: 4%;
+    width: 92%;
+    font-size: clamp(32px, 9.6vw, 48px);
+    line-height: .9;
+  }
+  .gallery-page .gallery-footer-right a {
+    font-size: 8px;
+  }
+}
+
